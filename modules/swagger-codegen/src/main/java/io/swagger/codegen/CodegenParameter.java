@@ -75,9 +75,13 @@ public class CodegenParameter {
      * See http://json-schema.org/latest/json-schema-validation.html#anchor14
      */
     public Number multipleOf;
-    
+
     public CodegenParameter copy() {
-        CodegenParameter output = new CodegenParameter();
+        CodegenParameter clone = new CodegenParameter();
+        return copyTo(clone);
+    }
+
+    public CodegenParameter copyTo(CodegenParameter output) {
         output.isFile = this.isFile;
         output.notFile = this.notFile;
         output.hasMore = this.hasMore;
@@ -157,7 +161,11 @@ public class CodegenParameter {
         if (o == null || getClass() != o.getClass()) return false;
 
         CodegenParameter that = (CodegenParameter) o;
+        return equalFields(that);
+    }
 
+    protected boolean equalFields(CodegenParameter that)
+    {
         if (isEnum != that.isEnum) return false;
         if (isFormParam != that.isFormParam)
             return false;
@@ -268,7 +276,6 @@ public class CodegenParameter {
         if (uniqueItems != that.uniqueItems)
             return false;
         return multipleOf != null ? multipleOf.equals(that.multipleOf) : that.multipleOf == null;
-
     }
 
     @Override
