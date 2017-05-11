@@ -28,6 +28,9 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
     protected CodegenIgnoreProcessor ignoreProcessor;
     private Boolean generateApis = null;
     private Boolean generateModels = null;
+    /* Reportix */
+    private Boolean generateInlineModels = null;
+    /* Reportix */
     private Boolean generateSupportingFiles = null;
     private Boolean generateApiTests = null;
     private Boolean generateApiDocumentation = null;
@@ -92,6 +95,10 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
         // allows generating only models by specifying a CSV of models to generate, or empty for all
         generateApis = System.getProperty("apis") != null ? true:null;
         generateModels = System.getProperty("models") != null ? true: null;
+        /* Reportix */
+        generateInlineModels = System.getProperty("noInlineModels") != null ? false:true;
+        /* Reportix */
+
         generateSupportingFiles = System.getProperty("supportingFiles") != null ? true:null;
 
         if (generateApis == null && generateModels == null && generateSupportingFiles == null) {
@@ -664,9 +671,13 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
         configureGeneratorProperties();
         configureSwaggerInfo();
 
-        // resolve inline models
-        InlineModelResolver inlineModelResolver = new InlineModelResolver();
-        inlineModelResolver.flatten(swagger);
+        /* Reportix */
+        if (generateInlineModels) {
+            // resolve inline models
+            InlineModelResolver inlineModelResolver = new InlineModelResolver();
+            inlineModelResolver.flatten(swagger);
+        }
+        /* Reportix */
 
         List<File> files = new ArrayList<File>();
         // models
