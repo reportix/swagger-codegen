@@ -395,6 +395,13 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
                 });
                 Map<String, Object> operation = processOperations(config, tag, ops);
 
+                /* Reportix */
+                Map<String, Object> operationObjs = (Map<String, Object>) operation.get("operations");
+                List<CodegenOperation> operationList = (List<CodegenOperation>) operationObjs.get("operation");
+                if (operationList.isEmpty())
+                    continue;
+                /* Reportix */
+
                 operation.put("basePath", basePath);
                 operation.put("basePathWithoutHost", basePathWithoutHost);
                 operation.put("contextPath", contextPath);
