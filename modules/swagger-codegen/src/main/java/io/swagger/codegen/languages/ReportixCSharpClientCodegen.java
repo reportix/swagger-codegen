@@ -16,6 +16,7 @@ public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
     public ReportixCSharpClientCodegen()
     {
         super();
+        CodegenModelFactory.setTypeMapping(CodegenModelType.OPERATION, ReportixCodegenOperation.class);
         CodegenModelFactory.setTypeMapping(CodegenModelType.PARAMETER, ReportixCodegenParameter.class);
     };
 
@@ -73,7 +74,14 @@ public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
             operation.setParameters(parameters);
         }
 
-        return super.fromOperation(path, httpMethod, operation, definitions, swagger);
+        CodegenOperation codegenOperation =  super.fromOperation(path, httpMethod, operation, definitions, swagger);
+
+        /*
+         * Moves the hardcoded/pattern parameters in the correct list
+         */
+        ((ReportixCodegenOperation) codegenOperation).recomputeOperationLists();
+
+        return codegenOperation;
     }
 
     @Override
@@ -82,10 +90,9 @@ public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
         ReportixCodegenParameter parameter = (ReportixCodegenParameter) super.fromParameter(param, imports);
 
         /*
-         * Compute the overridden name and description
+         * Compute the overridden name, description and default value
          */
-        parameter.computeEffectiveParameterDescription(this, param);
-        parameter.computeEffectiveParameterName(this, param);
+        parameter.computeEffectiveValues(this, param);
 
         return parameter;
     }
