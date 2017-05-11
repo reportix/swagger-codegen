@@ -5,6 +5,8 @@ import java.util.Map;
 public class ReportixUtils
 {
     private static final String EXCLUDE = "x-exclude";
+    public static final String OVERRIDE_NAME = "x-name";
+    public static final String OVERRIDE_DESCRIPTION = "x-description";
 
     public static boolean getBooleanValue(Map<String, Object> vendorExtensions, String parameter, boolean defaultValue)
     {

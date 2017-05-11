@@ -1,6 +1,6 @@
 package io.swagger.codegen.languages;
 
-import io.swagger.codegen.CodegenOperation;
+import io.swagger.codegen.*;
 import io.swagger.codegen.utils.ReportixUtils;
 import io.swagger.models.Model;
 import io.swagger.models.Operation;
@@ -10,8 +10,15 @@ import io.swagger.models.parameters.Parameter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
+    public ReportixCSharpClientCodegen()
+    {
+        super();
+        CodegenModelFactory.setTypeMapping(CodegenModelType.PARAMETER, ReportixCodegenParameter.class);
+    };
+
     @Override
     public String getName() {
         return "reportix-csharp";
@@ -69,9 +76,21 @@ public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
         return super.fromOperation(path, httpMethod, operation, definitions, swagger);
     }
 
+    @Override
+    public CodegenParameter fromParameter(Parameter param, Set<String> imports)
+    {
+        ReportixCodegenParameter parameter = (ReportixCodegenParameter) super.fromParameter(param, imports);
 
+        /*
+         * Compute the overridden name and description
+         */
+        parameter.computeEffectiveParameterDescription(this, param);
+        parameter.computeEffectiveParameterName(this, param);
 
-        @Override
+        return parameter;
+    }
+
+    @Override
     public Map<String, Object> postProcessOperations(Map<String, Object> operations)
     {
         /*
