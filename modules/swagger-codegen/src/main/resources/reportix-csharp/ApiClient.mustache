@@ -115,8 +115,12 @@ namespace {{packageName}}.Client
         public RestClient RestClient { get; set; }
 
         // Creates and sets up a RestRequest prior to a call.
+        /*
+         * Reportix: make method public and change the type of the queryParams
+         */
         public RestRequest PrepareRequest(
             String path, {{^netStandard}}RestSharp.{{/netStandard}}Method method, Dictionary<String, List<String>> queryParams, Object postBody,
+        /* Reportix */
             Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
             Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
             String contentType)
@@ -137,8 +141,10 @@ namespace {{packageName}}.Client
 
             // add query parameter, if any
             foreach(var param in queryParams)
+            /* Reportix */
                 foreach(var value in param.Value)
                     request.AddQueryParameter(param.Key, value);
+            /* Reportix */
 
             // add form parameter, if any
             foreach(var param in formParams)
@@ -187,6 +193,9 @@ namespace {{packageName}}.Client
             return request;
         }
 
+        /*
+         * Reportix: change paramter to prebuilt request and do not build request
+         */
         /// <summary>
         /// Makes the HTTP request (Sync).
         /// </summary>
@@ -194,6 +203,7 @@ namespace {{packageName}}.Client
         /// <returns>Object</returns>
         public Object CallApi(IRestRequest request)
         {
+        /* Reportix */
             // set timeout
             RestClient.Timeout = Configuration.Timeout;
             // set user agent
@@ -216,6 +226,10 @@ namespace {{packageName}}.Client
 
             return (Object) response;
         }
+
+        /*
+         * Reportix: change paramter to prebuilt request and do not build request
+         */
         {{#supportsAsync}}
         /// <summary>
         /// Makes the asynchronous HTTP request.
@@ -224,6 +238,7 @@ namespace {{packageName}}.Client
         /// <returns>The Task instance.</returns>
         public async System.Threading.Tasks.Task<Object> CallApiAsync(IRestRequest request)
         {
+        /* Reportix */
             InterceptRequest(request);
             var response = await RestClient.Execute{{^netStandard}}TaskAsync{{/netStandard}}(request);
             InterceptResponse(request, response);
@@ -254,30 +269,9 @@ namespace {{packageName}}.Client
                 return FileParameter.Create(name, ReadAsBytes(stream), "no_file_name_provided");
         }
 
-
-        /// <summary>
-        /// If parameter is DateTime or DateTimeOffset, output in a formatted string (default ISO 8601), customizable with Configuration.DateTime.
-        /// If parameter is a boolean, return "true" or "false"
-        /// If the parameter is a single value just return its string conversion.
-        /// Otherwhise if the paramter is a list, the conversion above is applied to all its elements.
-        /// </summary>
-        /// <param name="obj">The parameter (header, path, query, form).</param>
-        /// <returns>List of formatted strings.</returns>
-        public List<string> ParameterToStringList(object obj)
-        {
-            if (obj is IList)
-            {
-                List<string> ret = new List<string>();
-                foreach (var param in (IList)obj)
-                    ret.Add(ParameterToString(param));
-                return ret;
-            }
-            else
-            {
-                return new List<string> { ParameterToString(obj) };
-            }
-        }
-
+        /*
+         * Reportix: rework parameter serialization
+         */
         /// <summary>
         /// If parameter is DateTime, output in a formatted string (default ISO 8601), customizable with Configuration.DateTime.
         /// If parameter is a boolean, return "true" or "false"
@@ -307,6 +301,32 @@ namespace {{packageName}}.Client
                 return Convert.ToString (obj);
         }
 
+
+        /// <summary>
+        /// If parameter is DateTime or DateTimeOffset, output in a formatted string (default ISO 8601), customizable with Configuration.DateTime.
+        /// If parameter is a boolean, return "true" or "false"
+        /// If the parameter is a single value just return its string conversion.
+        /// Otherwhise if the paramter is a list, the conversion above is applied to all its elements.
+        /// </summary>
+        /// <param name="obj">The parameter (header, path, query, form).</param>
+        /// <returns>List of formatted strings.</returns>
+        public List<string> ParameterToStringList(object obj)
+        {
+            if (obj is IList)
+            {
+                List<string> ret = new List<string>();
+                foreach (var param in (IList)obj)
+                    ret.Add(ParameterToString(param));
+                return ret;
+            }
+            else
+            {
+                return new List<string> { ParameterToString(obj) };
+            }
+        }
+
+
+
         /// <summary>
         /// Serializes a body parameter.
         /// </summary>
@@ -319,6 +339,7 @@ namespace {{packageName}}.Client
             else
                 return Serialize(body);
         }
+        /* Reportix */
 
         /// <summary>
         /// Deserialize the JSON string into a proper object.
@@ -544,7 +565,9 @@ namespace {{packageName}}.Client
         {{/supportsUWP}}
         {{/netStandard}}
 
-        /* Reportix */
+        /* 
+         * Reportix: support for pattern parameters
+         */
         /// <summary>
         /// Adds pattern-based parameters (after name validation) to a dictionary query parameters.
         /// </summary>

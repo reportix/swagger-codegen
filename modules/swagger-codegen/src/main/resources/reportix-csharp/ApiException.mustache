@@ -1,8 +1,9 @@
 {{>partial_header}}
 using System;
+/* Reportix */
 using System.Text;
 using RestSharp;
-
+/* Reportix */
 
 namespace {{packageName}}.Client
 {
@@ -17,6 +18,9 @@ namespace {{packageName}}.Client
         /// <value>The error code (HTTP status code).</value>
         public int ErrorCode { get; set; }
 
+        /*
+         * Reprtix: Change arguments to have the entire request and response
+         */ 
         /// <summary>
         /// Gets or sets the request
         /// </summary>
@@ -28,6 +32,7 @@ namespace {{packageName}}.Client
         /// </summary>
         /// <value>The http response containing the generated error.</value>
         public IRestResponse Response { get; set; }
+        /* Reportix /
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiException"/> class.
@@ -44,6 +49,9 @@ namespace {{packageName}}.Client
             this.ErrorCode = errorCode;
         }
 
+        /*
+         * Reportix: Change arguments to have the entire request and response, add ToString and ToStringDebug
+         */ 
         /// <summary>
         /// Initializes a new instance of the <see cref="ApiException"/> class.
         /// </summary>
@@ -56,7 +64,7 @@ namespace {{packageName}}.Client
             this.Request = request;
             this.Response = response;
         }
-
+        
         /// <summary>
         /// Produces a concise exception description.
         /// </summary>
@@ -115,4 +123,5 @@ namespace {{packageName}}.Client
             return sb.ToString();
         }
     }
+    /* Reportix */
 }

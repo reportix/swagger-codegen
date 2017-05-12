@@ -80,6 +80,9 @@ namespace {{packageName}}.Client
         /// <value>Configuration.</value>
         public static Configuration Default = new Configuration();
 
+        /*
+         * Reportix: added request parameter, building of exception using request and response
+         */
         /// <summary>
         /// Default creation of exceptions for a given method name and response object
         /// </summary>
@@ -92,6 +95,7 @@ namespace {{packageName}}.Client
             {{/netStandard}}
             return null;
         };
+        /* Reportix */
 
         /// <summary>
         /// Gets or sets the HTTP timeout (milliseconds) of ApiClient. Default to 100000 milliseconds.

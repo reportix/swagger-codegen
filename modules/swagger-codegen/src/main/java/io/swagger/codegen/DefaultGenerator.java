@@ -4,7 +4,9 @@ import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 import io.swagger.codegen.ignore.CodegenIgnoreProcessor;
 import io.swagger.codegen.utils.ImplementationVersion;
+/* Reportix */
 import io.swagger.codegen.utils.ReportixUtils;
+/* Reportix */
 import io.swagger.models.*;
 import io.swagger.models.auth.OAuth2Definition;
 import io.swagger.models.auth.SecuritySchemeDefinition;

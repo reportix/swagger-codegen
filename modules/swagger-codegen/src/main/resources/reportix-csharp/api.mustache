@@ -10,10 +10,14 @@ using RestSharp.Portable;
 using RestSharp;
 {{/netStandard}}
 using {{packageName}}.Client;
+/*
+ * Reportix: do not import models if not generated
+ */
 {{^noInlineModels}}
 {{#hasImport}}using {{packageName}}.{{modelPackage}};
 {{/hasImport}}
 {{/noInlineModels}}
+/* Reportix */
 
 namespace {{packageName}}.{{apiPackage}}
 {
@@ -82,7 +86,11 @@ namespace {{packageName}}.{{apiPackage}}
     /// </summary>
     {{>visibility}} partial class {{classname}} : {{interfacePrefix}}{{classname}}
     {
+        /*
+         * Reportix: add request parameter to exceptions
+         */
         private {{packageName}}.Client.ExceptionFactory _exceptionFactory = (name, request, response) => null;
+        /* Reportix */
 
         /// <summary>
         /// Initializes a new instance of the <see cref="{{classname}}"/> class.
@@ -217,7 +225,11 @@ namespace {{packageName}}.{{apiPackage}}
 
             var localVarPath = "{{#netStandard}}.{{/netStandard}}{{{path}}}";
             var localVarPathParams = new Dictionary<String, String>();
+            /* 
+             * Reportix: change queryParam type
+             */
             var localVarQueryParams = new Dictionary<String, List<String>>();
+            /* Reportix */
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
             var localVarFormParams = new Dictionary<String, String>();
             var localVarFileParams = new Dictionary<String, FileParameter>();
@@ -231,7 +243,9 @@ namespace {{packageName}}.{{apiPackage}}
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
+            /* Reportix */
             {{^noAutoAcceptHeader}}
+            /* Reportix */
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 {{#produces}}
@@ -241,9 +255,13 @@ namespace {{packageName}}.{{apiPackage}}
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            {{/noAutoAcceptHeader}}
-
             /* Reportix */
+            {{/noAutoAcceptHeader}}
+            /* Reportix */
+
+            /* 
+             * Reportix: Support hardcoded and pattern parameters
+             */
             {{#hardcodedQueryParams}}
             localVarQueryParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // hardcoded query parameter
             {{/hardcodedQueryParams}}
@@ -255,7 +273,11 @@ namespace {{packageName}}.{{apiPackage}}
             if ({{paramName}} != null) localVarPathParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // path parameter
             {{/pathParams}}
             {{#queryParams}}
+            /* 
+             * Reportix: change type of queryParams 
+             */
             if ({{paramName}} != null) localVarQueryParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToStringList({{paramName}})); // query parameter
+            /* Reportix */
             {{/queryParams}}
             {{#headerParams}}
             if ({{paramName}} != null) localVarHeaderParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // header parameter
@@ -264,7 +286,11 @@ namespace {{packageName}}.{{apiPackage}}
             if ({{paramName}} != null) {{#isFile}}localVarFileParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToFile("{{baseName}}", {{paramName}}));{{/isFile}}{{^isFile}}localVarFormParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // form parameter{{/isFile}}
             {{/formParams}}
             {{#bodyParam}}
+            /* 
+             * Reportix: Improve parameter serialization
+             */
             if ({{paramName}} != null) localVarPostBody = Configuration.ApiClient.ParameterToBody({{paramName}}); // body parameter
+            /* Reportix */
             {{/bodyParam}}
 
             {{#authMethods}}
@@ -298,6 +324,9 @@ namespace {{packageName}}.{{apiPackage}}
             }{{/isOAuth}}
             {{/authMethods}}
 
+             /* 
+              * Reportix: build then send the HTTP request
+              */
             // Prepare the HTTP request
             IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.{{httpMethod}}, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
@@ -305,12 +334,17 @@ namespace {{packageName}}.{{apiPackage}}
 
             // execute the HTTP request
             IRestResponse localVarResponse = (IRestResponse) Configuration.ApiClient.CallApi(localVarRequest);
+            /* Reportix */
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
+                /*
+                 * Reportix: add request to exception
+                 */
                 Exception exception = ExceptionFactory("{{operationId}}", localVarRequest, localVarResponse);
+                /* Reportix */
                 if (exception != null) throw exception;
             }
 
@@ -358,7 +392,11 @@ namespace {{packageName}}.{{apiPackage}}
 
             var localVarPath = "{{#netStandard}}.{{/netStandard}}{{{path}}}";
             var localVarPathParams = new Dictionary<String, String>();
+            /* 
+             * Reportix: change queryParam type
+             */
             var localVarQueryParams = new Dictionary<String, List<String>>();
+            /* Reportix */
             var localVarHeaderParams = new Dictionary<String, String>(Configuration.DefaultHeader);
             var localVarFormParams = new Dictionary<String, String>();
             var localVarFileParams = new Dictionary<String, FileParameter>();
@@ -372,7 +410,9 @@ namespace {{packageName}}.{{apiPackage}}
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
+            /* Reportix */
             {{^noAutoAcceptHeader}}
+            /* Reportix */
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 {{#produces}}
@@ -382,9 +422,13 @@ namespace {{packageName}}.{{apiPackage}}
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
-            {{/noAutoAcceptHeader}}
-
             /* Reportix */
+            {{/noAutoAcceptHeader}}
+            /* Reportix */
+
+            /* 
+             * Reportix: Support hardcoded and pattern parameters
+             */
             {{#hardcodedQueryParams}}
             localVarQueryParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // hardcoded query parameter
             {{/hardcodedQueryParams}}
@@ -396,7 +440,11 @@ namespace {{packageName}}.{{apiPackage}}
             if ({{paramName}} != null) localVarPathParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // path parameter
             {{/pathParams}}
             {{#queryParams}}
+            /* 
+             * Reportix: change type of queryParams 
+             */
             if ({{paramName}} != null) localVarQueryParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToStringList({{paramName}})); // query parameter
+            /* Reportix */
             {{/queryParams}}
             {{#headerParams}}
             if ({{paramName}} != null) localVarHeaderParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // header parameter
@@ -405,7 +453,11 @@ namespace {{packageName}}.{{apiPackage}}
             if ({{paramName}} != null) {{#isFile}}localVarFileParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToFile("{{baseName}}", {{paramName}}));{{/isFile}}{{^isFile}}localVarFormParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // form parameter{{/isFile}}
             {{/formParams}}
             {{#bodyParam}}
+            /* 
+             * Reportix: Improve parameter serialization
+             */
             if ({{paramName}} != null) localVarPostBody = Configuration.ApiClient.ParameterToBody({{paramName}}); // body parameter
+            /* Reportix */
             {{/bodyParam}}
 
             {{#authMethods}}
@@ -440,19 +492,27 @@ namespace {{packageName}}.{{apiPackage}}
             {{/isOAuth}}
             {{/authMethods}}
 
-            // make the HTTP request
+             /* 
+              * Reportix: build then send the HTTP request
+              */
+            // Prepare the HTTP request
             IRestRequest localVarRequest = (IRestRequest) Configuration.ApiClient.PrepareRequest(localVarPath,
                 Method.{{httpMethod}}, localVarQueryParams, localVarPostBody, localVarHeaderParams, localVarFormParams, localVarFileParams,
                 localVarPathParams, localVarHttpContentType);
 
             // execute the HTTP request
             IRestResponse localVarResponse = (IRestResponse) await Configuration.ApiClient.CallApiAsync(localVarRequest);
+            /* Reportix */
 
             int localVarStatusCode = (int) localVarResponse.StatusCode;
 
             if (ExceptionFactory != null)
             {
+                /*
+                 * Reportix: add request to exception
+                 */
                 Exception exception = ExceptionFactory("{{operationId}}", localVarRequest, localVarResponse);
+                /* Reportix */
                 if (exception != null) throw exception;
             }
 
