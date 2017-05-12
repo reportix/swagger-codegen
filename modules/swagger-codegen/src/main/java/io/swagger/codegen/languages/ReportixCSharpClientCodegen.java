@@ -18,7 +18,7 @@ import java.util.Set;
 public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
     boolean generateInlineModels;
     protected static final Logger LOGGER = LoggerFactory.getLogger(ReportixCSharpClientCodegen.class);
-
+    
     public ReportixCSharpClientCodegen()
     {
         super();
@@ -26,6 +26,13 @@ public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
         CodegenModelFactory.setTypeMapping(CodegenModelType.PARAMETER, ReportixCodegenParameter.class);
         generateInlineModels = System.getProperty(ReportixUtils.NO_INLINE_MODELS) != null ? false:true;
     };
+
+    @Override
+    public void processOpts() {
+        super.processOpts();
+        additionalProperties.put("noAutoAcceptHeader", true);
+    }
+
 
     @Override
     public String getName() {
