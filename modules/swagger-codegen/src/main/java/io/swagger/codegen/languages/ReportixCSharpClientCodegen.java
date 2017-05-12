@@ -31,6 +31,7 @@ public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
     public void processOpts() {
         super.processOpts();
         additionalProperties.put("noAutoAcceptHeader", true);
+        additionalProperties.put("noInlineModels", !generateInlineModels);
     }
 
 

@@ -10,8 +10,10 @@ using RestSharp.Portable;
 using RestSharp;
 {{/netStandard}}
 using {{packageName}}.Client;
+{{^noInlineModels}}
 {{#hasImport}}using {{packageName}}.{{modelPackage}};
 {{/hasImport}}
+{{/noInlineModels}}
 
 namespace {{packageName}}.{{apiPackage}}
 {
@@ -262,7 +264,7 @@ namespace {{packageName}}.{{apiPackage}}
             if ({{paramName}} != null) {{#isFile}}localVarFileParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToFile("{{baseName}}", {{paramName}}));{{/isFile}}{{^isFile}}localVarFormParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // form parameter{{/isFile}}
             {{/formParams}}
             {{#bodyParam}}
-            if ({{paramName}} != null) localVarPostBody = Configuration.ApiClient.ParameterToBody(); // body parameter
+            if ({{paramName}} != null) localVarPostBody = Configuration.ApiClient.ParameterToBody({{paramName}}); // body parameter
             {{/bodyParam}}
 
             {{#authMethods}}
@@ -403,7 +405,7 @@ namespace {{packageName}}.{{apiPackage}}
             if ({{paramName}} != null) {{#isFile}}localVarFileParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToFile("{{baseName}}", {{paramName}}));{{/isFile}}{{^isFile}}localVarFormParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // form parameter{{/isFile}}
             {{/formParams}}
             {{#bodyParam}}
-            if ({{paramName}} != null) localVarPostBody = Configuration.ApiClient.ParameterToBody(); // body parameter
+            if ({{paramName}} != null) localVarPostBody = Configuration.ApiClient.ParameterToBody({{paramName}}); // body parameter
             {{/bodyParam}}
 
             {{#authMethods}}

@@ -10,8 +10,10 @@ using NUnit.Framework;
 
 using {{packageName}}.Client;
 using {{packageName}}.{{apiPackage}};
+{{^noInlineModels}}
 {{#hasImport}}using {{packageName}}.{{modelPackage}};
 {{/hasImport}}
+{{/noInlineModels}}
 
 namespace {{packageName}}.Test
 {
