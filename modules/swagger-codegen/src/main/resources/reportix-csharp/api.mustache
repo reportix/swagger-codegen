@@ -239,9 +239,14 @@ namespace {{packageName}}.{{apiPackage}}
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            /* Reportix */
             {{#hardcodedQueryParams}}
             localVarQueryParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // hardcoded query parameter
             {{/hardcodedQueryParams}}
+            {{#patternQueryParams}}
+            if ({{paramName}} != null) Configuration.ApiClient.AddPatternQueryParameters({{paramName}}, "{{namePattern}}", localVarQueryParams); // pattern query parameter
+            {{/patternQueryParams}}
+            /* Reportix */
             {{#pathParams}}
             if ({{paramName}} != null) localVarPathParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // path parameter
             {{/pathParams}}
@@ -377,9 +382,14 @@ namespace {{packageName}}.{{apiPackage}}
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
 
+            /* Reportix */
             {{#hardcodedQueryParams}}
             localVarQueryParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // hardcoded query parameter
             {{/hardcodedQueryParams}}
+            {{#patternQueryParams}}
+            if ({{paramName}} != null) Configuration.ApiClient.AddPatternQueryParameters({{paramName}}, "{{namePattern}}", localVarQueryParams); // pattern query parameter
+            {{/patternQueryParams}}
+            /* Reportix */
             {{#pathParams}}
             if ({{paramName}} != null) localVarPathParams.Add("{{baseName}}", Configuration.ApiClient.ParameterToString({{paramName}})); // path parameter
             {{/pathParams}}

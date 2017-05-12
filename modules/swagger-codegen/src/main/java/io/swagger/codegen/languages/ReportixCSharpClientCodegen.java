@@ -5,7 +5,10 @@ import io.swagger.codegen.utils.ReportixUtils;
 import io.swagger.models.Model;
 import io.swagger.models.Operation;
 import io.swagger.models.Swagger;
+import io.swagger.models.parameters.BodyParameter;
 import io.swagger.models.parameters.Parameter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -92,7 +95,7 @@ public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
         /*
          * Compute the overridden name, description and default value
          */
-        parameter.computeEffectiveValues(this, param);
+        parameter.init(this, param);
 
         return parameter;
     }
