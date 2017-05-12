@@ -115,7 +115,7 @@ namespace {{packageName}}.Client
         public RestClient RestClient { get; set; }
 
         // Creates and sets up a RestRequest prior to a call.
-        private RestRequest PrepareRequest(
+        public RestRequest PrepareRequest(
             String path, {{^netStandard}}RestSharp.{{/netStandard}}Method method, Dictionary<String, String> queryParams, Object postBody,
             Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
             Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
@@ -189,26 +189,10 @@ namespace {{packageName}}.Client
         /// <summary>
         /// Makes the HTTP request (Sync).
         /// </summary>
-        /// <param name="path">URL path.</param>
-        /// <param name="method">HTTP method.</param>
-        /// <param name="queryParams">Query parameters.</param>
-        /// <param name="postBody">HTTP body (POST request).</param>
-        /// <param name="headerParams">Header parameters.</param>
-        /// <param name="formParams">Form parameters.</param>
-        /// <param name="fileParams">File parameters.</param>
-        /// <param name="pathParams">Path parameters.</param>
-        /// <param name="contentType">Content Type of the request</param>
+        /// <param name="request">The request to make.</param>
         /// <returns>Object</returns>
-        public Object CallApi(
-            String path, {{^netStandard}}RestSharp.{{/netStandard}}Method method, Dictionary<String, String> queryParams, Object postBody,
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
-            Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
-            String contentType)
+        public Object CallApi(IRestRequest request)
         {
-            var request = PrepareRequest(
-                path, method, queryParams, postBody, headerParams, formParams, fileParams,
-                pathParams, contentType);
-
             // set timeout
             RestClient.Timeout = Configuration.Timeout;
             // set user agent
@@ -235,25 +219,10 @@ namespace {{packageName}}.Client
         /// <summary>
         /// Makes the asynchronous HTTP request.
         /// </summary>
-        /// <param name="path">URL path.</param>
-        /// <param name="method">HTTP method.</param>
-        /// <param name="queryParams">Query parameters.</param>
-        /// <param name="postBody">HTTP body (POST request).</param>
-        /// <param name="headerParams">Header parameters.</param>
-        /// <param name="formParams">Form parameters.</param>
-        /// <param name="fileParams">File parameters.</param>
-        /// <param name="pathParams">Path parameters.</param>
-        /// <param name="contentType">Content type.</param>
+        /// <param name="request">The HTTP request to make.</param>
         /// <returns>The Task instance.</returns>
-        public async System.Threading.Tasks.Task<Object> CallApiAsync(
-            String path, {{^netStandard}}RestSharp.{{/netStandard}}Method method, Dictionary<String, String> queryParams, Object postBody,
-            Dictionary<String, String> headerParams, Dictionary<String, String> formParams,
-            Dictionary<String, FileParameter> fileParams, Dictionary<String, String> pathParams,
-            String contentType)
+        public async System.Threading.Tasks.Task<Object> CallApiAsync(IRestRequest request)
         {
-            var request = PrepareRequest(
-                path, method, queryParams, postBody, headerParams, formParams, fileParams,
-                pathParams, contentType);
             InterceptRequest(request);
             var response = await RestClient.Execute{{^netStandard}}TaskAsync{{/netStandard}}(request);
             InterceptResponse(request, response);
