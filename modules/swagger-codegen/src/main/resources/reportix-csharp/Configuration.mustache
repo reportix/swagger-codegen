@@ -83,12 +83,12 @@ namespace {{packageName}}.Client
         /// <summary>
         /// Default creation of exceptions for a given method name and response object
         /// </summary>
-        public static readonly ExceptionFactory DefaultExceptionFactory = (methodName, response) =>
+        public static readonly ExceptionFactory DefaultExceptionFactory = (methodName, request, response) =>
         {
             int status = (int) response.StatusCode;
-            if (status >= 400) return new ApiException(status, String.Format("Error calling {0}: {1}", methodName, response.Content), response.Content);
+            if (status >= 400) return new ApiException(status, String.Format("Error calling {0}: {1}", methodName, response.Content), request, response);
             {{^netStandard}}
-            if (status == 0) return new ApiException(status, String.Format("Error calling {0}: {1}", methodName, response.ErrorMessage), response.ErrorMessage);
+            if (status == 0) return new ApiException(status, String.Format("Error calling {0}: {1}", methodName, response.ErrorMessage), request, response);
             {{/netStandard}}
             return null;
         };
