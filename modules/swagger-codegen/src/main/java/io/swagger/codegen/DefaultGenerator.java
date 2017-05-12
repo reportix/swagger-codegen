@@ -4,6 +4,7 @@ import com.samskivert.mustache.Mustache;
 import com.samskivert.mustache.Template;
 import io.swagger.codegen.ignore.CodegenIgnoreProcessor;
 import io.swagger.codegen.utils.ImplementationVersion;
+import io.swagger.codegen.utils.ReportixUtils;
 import io.swagger.models.*;
 import io.swagger.models.auth.OAuth2Definition;
 import io.swagger.models.auth.SecuritySchemeDefinition;
@@ -96,7 +97,7 @@ public class DefaultGenerator extends AbstractGenerator implements Generator {
         generateApis = System.getProperty("apis") != null ? true:null;
         generateModels = System.getProperty("models") != null ? true: null;
         /* Reportix */
-        generateInlineModels = System.getProperty("noInlineModels") != null ? false:true;
+        generateInlineModels = System.getProperty(ReportixUtils.NO_INLINE_MODELS) != null ? false:true;
         /* Reportix */
 
         generateSupportingFiles = System.getProperty("supportingFiles") != null ? true:null;

@@ -16,11 +16,15 @@ import java.util.Map;
 import java.util.Set;
 
 public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
+    boolean generateInlineModels;
+    protected static final Logger LOGGER = LoggerFactory.getLogger(ReportixCSharpClientCodegen.class);
+
     public ReportixCSharpClientCodegen()
     {
         super();
         CodegenModelFactory.setTypeMapping(CodegenModelType.OPERATION, ReportixCodegenOperation.class);
         CodegenModelFactory.setTypeMapping(CodegenModelType.PARAMETER, ReportixCodegenParameter.class);
+        generateInlineModels = System.getProperty(ReportixUtils.NO_INLINE_MODELS) != null ? false:true;
     };
 
     @Override
@@ -91,6 +95,28 @@ public class ReportixCSharpClientCodegen extends CSharpClientCodegen {
     public CodegenParameter fromParameter(Parameter param, Set<String> imports)
     {
         ReportixCodegenParameter parameter = (ReportixCodegenParameter) super.fromParameter(param, imports);
+
+        /*
+         * If the generation of models is disabled, reset user defined types to Object
+         */
+        if (!generateInlineModels && param instanceof BodyParameter)
+        {
+            BodyParameter bp = (BodyParameter) param;
+            Model model = bp.getSchema();
+            if (
+                    model != null &&
+                            (
+                                    (parameter.baseType != null && !parameter.baseType.equals("Object")) ||
+                                            !parameter.dataType.equals("Object")
+                            )
+                    )
+            {
+                LOGGER.warn("Generation of inline models is disabled, resetting the type of " + parameter.paramName + " to Object");
+                parameter.baseType = "Object";
+                parameter.dataType = "Object";
+                parameter.isPrimitiveType = true;
+            }
+        }
 
         /*
          * Compute the overridden name, description and default value
