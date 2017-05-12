@@ -263,7 +263,7 @@ namespace {{packageName}}.Client
         /// </summary>
         /// <param name="obj">The parameter (header, path, query, form).</param>
         /// <returns>List of formatted strings.</returns>
-        public List<string> ParameterToString(object obj)
+        public List<string> ParameterToStringList(object obj)
         {
             if (obj is IList)
             {
@@ -285,7 +285,7 @@ namespace {{packageName}}.Client
         /// </summary>
         /// <param name="obj">The parameter (header, path, query, form).</param>
         /// <returns>Formatted string.</returns>
-        public string SingleParameterToString(object obj)
+        public string ParameterToString(object obj)
         {
             if (obj is DateTime)
                 // Return a formatted date string - Can be customized with Configuration.DateTimeFormat
@@ -305,6 +305,19 @@ namespace {{packageName}}.Client
                 return ((Boolean)obj) ? "true" : "false";
             else
                 return Convert.ToString (obj);
+        }
+
+        /// <summary>
+        /// Serializes a body parameter.
+        /// </summary>
+        /// <param name="obj">The body parameter.</param>
+        /// <returns>Formatted string.</returns>
+        public Object ParameterToBody(object body)
+        {
+            if (body is byte[] || body is string || body is String)
+                return body;
+            else
+                return Serialize(body);
         }
 
         /// <summary>
