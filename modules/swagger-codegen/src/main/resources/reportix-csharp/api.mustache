@@ -229,6 +229,7 @@ namespace {{packageName}}.{{apiPackage}}
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
+            {{^noAutoAcceptHeader}}
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 {{#produces}}
@@ -238,6 +239,7 @@ namespace {{packageName}}.{{apiPackage}}
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+            {{/noAutoAcceptHeader}}
 
             /* Reportix */
             {{#hardcodedQueryParams}}
@@ -375,6 +377,7 @@ namespace {{packageName}}.{{apiPackage}}
             };
             String localVarHttpContentType = Configuration.ApiClient.SelectHeaderContentType(localVarHttpContentTypes);
 
+            {{^noAutoAcceptHeader}}
             // to determine the Accept header
             String[] localVarHttpHeaderAccepts = new String[] {
                 {{#produces}}
@@ -384,6 +387,7 @@ namespace {{packageName}}.{{apiPackage}}
             String localVarHttpHeaderAccept = Configuration.ApiClient.SelectHeaderAccept(localVarHttpHeaderAccepts);
             if (localVarHttpHeaderAccept != null)
                 localVarHeaderParams.Add("Accept", localVarHttpHeaderAccept);
+            {{/noAutoAcceptHeader}}
 
             /* Reportix */
             {{#hardcodedQueryParams}}
