@@ -76,12 +76,14 @@ public class CodegenParameter {
      */
     public Number multipleOf;
 
+    /* Reportix */
     public CodegenParameter copy() {
         CodegenParameter clone = new CodegenParameter();
         return copyTo(clone);
     }
 
     public CodegenParameter copyTo(CodegenParameter output) {
+    /* Reportix */
         output.isFile = this.isFile;
         output.notFile = this.notFile;
         output.hasMore = this.hasMore;
@@ -161,11 +163,13 @@ public class CodegenParameter {
         if (o == null || getClass() != o.getClass()) return false;
 
         CodegenParameter that = (CodegenParameter) o;
+        /* Reportix */
         return equalFields(that);
     }
 
     protected boolean equalFields(CodegenParameter that)
     {
+        /* Reportix */
         if (isEnum != that.isEnum) return false;
         if (isFormParam != that.isFormParam)
             return false;

@@ -10,10 +10,12 @@ using NUnit.Framework;
 
 using {{packageName}}.Client;
 using {{packageName}}.{{apiPackage}};
+/* Reportix: do not link models if not generated */
 {{^noInlineModels}}
 {{#hasImport}}using {{packageName}}.{{modelPackage}};
 {{/hasImport}}
 {{/noInlineModels}}
+/* Reportix */
 
 namespace {{packageName}}.Test
 {
