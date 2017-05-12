@@ -60,7 +60,7 @@ namespace {{packageName}}.Client
         /// <summary>
         /// Produces a concise exception description.
         /// </summary>
-        public string ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             sb.AppendLine(base.ToString());

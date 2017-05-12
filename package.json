@@ -1,0 +1,19 @@
+{
+  "name": "swagger-codegen",
+  "version": "0.0.1",
+  "description": "Swagger codegen with Reportix extensions",
+  "main": "",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reportix/swagger-codegen.git"
+  },
+  "author": "",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/reportix/swagger-codegen/issues"
+  },
+  "homepage": "https://github.com/reportix/swagger-codegen#readme"
+}
