@@ -543,5 +543,31 @@ namespace {{packageName}}.Client
         }
         {{/supportsUWP}}
         {{/netStandard}}
+
+        /* Reportix */
+        /// <summary>
+        /// Adds pattern-based parameters (after name validation) to a dictionary query parameters.
+        /// </summary>
+        /// <param name="parameters">Pattern parameters</param>
+        /// <param name="pattern">Pattern</param>
+        /// <param name="queryParams">Query parameters</param>
+        public void AddPatternQueryParameters<T>(Dictionary<String, T> parameters, string pattern, Dictionary<String, List<String>> queryParams)
+        {
+            Regex regex = new Regex(pattern);
+            foreach (KeyValuePair<String, T> entry in parameters)
+            {
+                if (regex.IsMatch(entry.Key))
+                {
+                    if (queryParams.ContainsKey(entry.Key))
+                        queryParams[entry.Key].AddRange(ParameterToString(entry.Value));
+                    else
+                        queryParams.Add(entry.Key, ParameterToString(entry.Value));
+                }
+                else
+                    throw new ApiException((int)400, "Invalid parameter " + entry.Key + ", parameter name must match the regular expression \"" + pattern + "\"");
+            }
+        }
+        /* Reportix */
+
     }
 }

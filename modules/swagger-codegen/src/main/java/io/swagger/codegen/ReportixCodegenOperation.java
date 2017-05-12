@@ -6,6 +6,7 @@ import java.util.List;
 public class ReportixCodegenOperation extends CodegenOperation {
 
     public List<CodegenParameter> hardcodedQueryParams = new ArrayList<CodegenParameter>();
+    public List<CodegenParameter> patternQueryParams = new ArrayList<CodegenParameter>();
 
     public void recomputeOperationLists()
     {
@@ -14,11 +15,15 @@ public class ReportixCodegenOperation extends CodegenOperation {
             List<CodegenParameter> removeQueryParams = new ArrayList<CodegenParameter>();
             for (CodegenParameter p : queryParams) {
                 ReportixCodegenParameter param = (ReportixCodegenParameter) p;
-                if (param.getParameterKind() == ReportixCodegenParameter.Kind.HARDCODED)
-                {
+                if (param.kind == ReportixCodegenParameter.Kind.HARDCODED) {
                     removeQueryParams.add(p);
                     hardcodedQueryParams.add(param.copy());
+                } else if (param.kind == ReportixCodegenParameter.Kind.PATTERN)
+                {
+                    removeQueryParams.add(p);
+                    patternQueryParams.add(param.copy());
                 }
+
             }
             for (CodegenParameter p : removeQueryParams) {
                 queryParams.remove(p);
@@ -31,7 +36,7 @@ public class ReportixCodegenOperation extends CodegenOperation {
             for (CodegenParameter p : allParams)
             {
                 ReportixCodegenParameter param = (ReportixCodegenParameter) p;
-                if(param.getParameterKind() == ReportixCodegenParameter.Kind.HARDCODED)
+                if(param.kind == ReportixCodegenParameter.Kind.HARDCODED)
                 {
                     removeAllParams.add(p);
                 }
@@ -41,6 +46,7 @@ public class ReportixCodegenOperation extends CodegenOperation {
         }
 
         recomputeListProperties(hardcodedQueryParams);
+        recomputeListProperties(patternQueryParams);
         recomputeListProperties(allParams);
     }
 

@@ -8,6 +8,7 @@ public class ReportixUtils
     public static final String OVERRIDE_NAME = "x-name";
     public static final String OVERRIDE_DESCRIPTION = "x-description";
     public static final String HARDCODED_VALUE = "x-hardcoded-value";
+    public static final String NAME_PATTERN = "x-pattern";
 
     public static boolean getBooleanValue(Map<String, Object> vendorExtensions, String parameter, boolean defaultValue)
     {
