@@ -82,7 +82,7 @@ public class CodegenParameter {
         return copyTo(clone);
     }
 
-    public CodegenParameter copyTo(CodegenParameter output) {
+    protected CodegenParameter copyTo(CodegenParameter output) {
     /* Reportix */
         output.isFile = this.isFile;
         output.notFile = this.notFile;
