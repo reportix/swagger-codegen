@@ -160,6 +160,22 @@
         </dependency>
 
         <dependency>
+          <groupId>javax.xml.bind</groupId>
+          <artifactId>jaxb-api</artifactId>
+          <version>${javax-xml-bind-version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.sun.xml.bind</groupId>
+          <artifactId>jaxb-core</artifactId>
+          <version>${comsun-xml-bind-version}</version>
+        </dependency>
+        <dependency>
+          <groupId>com.sun.xml.bind</groupId>
+          <artifactId>jaxb-impl</artifactId>
+          <version>${comsun-xml-bind-version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>${servlet-api-version}</version>
@@ -233,5 +249,7 @@
         <zip-version>1.3.2</zip-version>
         <jetty-version>9.2.9.v20150224</jetty-version>
         <jersey2-version>2.6</jersey2-version>
+        <javax-xml-bind-version>2.3.0</javax-xml-bind-version>
+        <comsun-xml-bind-version>2.3.0</comsun-xml-bind-version>
     </properties>
 </project>
