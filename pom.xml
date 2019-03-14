@@ -241,37 +241,6 @@
             </properties>
             <build>
                 <plugins>
-                    <plugin>
-                        <groupId>net.alchim31.maven</groupId>
-                        <artifactId>scala-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <goals>
-                                    <goal>compile</goal>
-                                    <goal>testCompile</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                        <configuration/>
-                    </plugin>
-                    <plugin>
-                        <groupId>org.codehaus.mojo</groupId>
-                        <artifactId>build-helper-maven-plugin</artifactId>
-                        <executions>
-                            <execution>
-                                <id>add-source</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>add-source</goal>
-                                </goals>
-                                <configuration>
-                                    <sources>
-                                        <source>src/main/scala</source>
-                                    </sources>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
                 </plugins>
             </build>
         </profile>
@@ -456,18 +425,6 @@
             </activation>
             <modules>
                 <module>samples/client/petstore/javascript</module>
-            </modules>
-        </profile>
-        <profile>
-            <id>scala-client</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>scala</value>
-                </property>
-            </activation>
-            <modules>
-                <module>samples/client/petstore/scala</module>
             </modules>
         </profile>
         <profile>
@@ -747,18 +704,6 @@
             </modules>
         </profile>
         <profile>
-            <id>scalatra-server</id>
-            <activation>
-                <property>
-                    <name>env</name>
-                    <value>java</value>
-                </property>
-            </activation>
-            <modules>
-                <module>samples/server/petstore/scalatra</module>
-            </modules>
-        </profile>
-        <profile>
             <id>java-inflector</id>
             <activation>
                 <property>
@@ -802,8 +747,6 @@
                 <module>samples/client/petstore/java/retrofit2rx</module>
                 <module>samples/client/petstore/jaxrs-cxf-client</module>
                 <module>samples/client/petstore/java/resttemplate</module>
-                <module>samples/client/petstore/scala</module>
-                <module>samples/client/petstore/akka-scala</module>
                 <module>samples/client/petstore/ruby</module>
                 <module>samples/client/petstore/android/volley</module>
                 <module>samples/client/petstore/bash</module>
@@ -829,7 +772,6 @@
                 <module>samples/server/petstore/jaxrs-resteasy/eap</module>
                 <module>samples/server/petstore/jaxrs-resteasy/eap-joda</module>
                 <module>samples/server/petstore/jaxrs-resteasy/joda</module>
-                <module>samples/server/petstore/scalatra</module>
                 <module>samples/server/petstore/spring-mvc</module>
                 <module>samples/client/petstore/spring-cloud</module>
                 <module>samples/server/petstore/springboot</module>
@@ -852,11 +794,6 @@
     <reporting>
         <outputDirectory>target/site</outputDirectory>
         <plugins>
-            <plugin>
-                <groupId>net.alchim31.maven</groupId>
-                <artifactId>scala-maven-plugin</artifactId>
-                <version>${scala-maven-plugin-version}</version>
-            </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jxr-plugin</artifactId>
@@ -912,7 +849,6 @@
     </repositories>
     <properties>
         <swagger-parser-version>1.0.28</swagger-parser-version>
-        <scala-version>2.11.1</scala-version>
         <felix-version>3.3.0</felix-version>
         <swagger-core-version>1.5.12</swagger-core-version>
         <commons-io-version>2.4</commons-io-version>
@@ -922,7 +858,6 @@
         <maven-plugin-version>1.0.0</maven-plugin-version>
         <commons-lang-version>3.4</commons-lang-version>
         <slf4j-version>1.7.12</slf4j-version>
-        <scala-maven-plugin-version>3.2.1</scala-maven-plugin-version>
         <jmustache-version>1.12</jmustache-version>
         <testng-version>6.9.6</testng-version>
         <surefire-version>2.19.1</surefire-version>
