@@ -36,11 +36,6 @@ packages/
 /generated-files
 nbactions.xml
 
-# scalatra
-samples/server-generator/scalatra/output
-samples/server-generator/scalatra/target
-samples/server-generator/scalatra/output/.history
-
 # nodejs
 **/node_modules
 samples/server-generator/node/output/node_modules
@@ -73,7 +68,6 @@ samples/client/petstore/java/retrofit/build/
 samples/client/petstore/java/retrofit2/build/
 samples/client/petstore/java/retrofit2rx/build/
 samples/client/petstore/java/default/build/
-samples/client/petstore/scala/build/
 
 #PHP
 samples/client/petstore/php/SwaggerClient-php/composer.lock
