@@ -1,0 +1,25 @@
+{{>partial_header}}
+
+using System;
+{{#netStandard}}
+using RestSharp.Portable;
+{{/netStandard}}
+{{^netStandard}}
+using RestSharp;
+{{/netStandard}}
+
+namespace {{packageName}}.Client
+{
+    /* 
+     * Reportix: Added request parameter
+     */
+    /// <summary>
+    /// A delegate to ExceptionFactory method
+    /// </summary>
+    /// <param name="methodName">Method name</param>
+    /// <param name="request">Request</param>
+    /// <param name="response">Response</param>
+    /// <returns>Exceptions</returns>
+    {{>visibility}} delegate Exception ExceptionFactory(string methodName, IRestRequest request, IRestResponse response);
+   /* Reportix */
+}

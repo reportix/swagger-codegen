@@ -32,8 +32,7 @@ public class OnlineGeneratorOptionsTest {
 
     @DataProvider(name = OPTIONS_PROVIDER)
     private static Object[][] listOptions() {
-        return new Object[][]{{new AkkaScalaClientOptionsProvider()}, {new AndroidClientOptionsProvider()},
-                {new AsyncScalaClientOptionsProvider()}, {new CSharpClientOptionsProvider()},
+        return new Object[][]{{new AndroidClientOptionsProvider()}, {new CSharpClientOptionsProvider()},
                 {new CsharpDotNet2ClientOptionsProvider()}, {new DartClientOptionsProvider()},
                 {new FlashClienOptionsProvider()}, {new JavaInflectorServerOptionsProvider()},
                 {
@@ -49,8 +48,7 @@ public class OnlineGeneratorOptionsTest {
                 {new NodeJSServerOptionsProvider()}, {new ObjcClientOptionsProvider()},
                 {new PerlClientOptionsProvider()}, {new PhpClientOptionsProvider()},
                 {new PythonClientOptionsProvider()}, {new Qt5CPPOptionsProvider()},
-                {new RubyClientOptionsProvider()}, {new ScalaClientOptionsProvider()},
-                {new ScalatraServerOptionsProvider()}, {new SilexServerOptionsProvider()},
+                {new RubyClientOptionsProvider()}, {new SilexServerOptionsProvider()},
                 {new SinatraServerOptionsProvider()}, {new SlimFrameworkServerOptionsProvider()},
                 {new SpringOptionsProvider()}, {new StaticDocOptionsProvider()},
                 {new StaticHtmlOptionsProvider()}, {new SwaggerOptionsProvider()},
